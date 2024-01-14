@@ -43,7 +43,7 @@ export abstract class ZodConfigService<
  */
 export const ZodConfig = <Schema extends UnknownZodSchema>(
   schema: Schema,
-): Type<ZodConfigService<Schema>> => {
+): Type<ZodConfigService<Schema>> & { zodSchema: UnknownZodSchema } => {
   @Injectable()
   class ZodConfig extends ZodConfigService<Schema> {
     /**
