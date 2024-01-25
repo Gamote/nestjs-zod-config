@@ -1,13 +1,10 @@
-import { Type } from '@nestjs/common';
-
-import { UnknownZodSchema } from './types';
-import { ZodConfigService } from './zod.config';
+import { UnknownZodObjectSchema, ZodConfigType } from './types';
 
 export interface ZodConfigOptions {
   /**
-   * If "true", the {@link ConfigModule} will be registered as a global module.
+   * If "true",it will be registered as a global module.
    * See: https://docs.nestjs.com/modules#global-modules
    */
   isGlobal?: boolean;
-  service: Type<ZodConfigService> & { zodSchema: UnknownZodSchema };
+  configs: ZodConfigType<UnknownZodObjectSchema>;
 }

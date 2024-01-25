@@ -1,6 +1,21 @@
+import { Type } from '@nestjs/common';
 import type { z } from 'zod';
 
-// I don't like `any` but we need it, so it doesn't complain about the consumer's side
-export type UnknownRecord = Record<any, unknown>;
+import { ZodConfigStatic } from './zod-config-static';
 
-export type UnknownZodSchema = z.ZodType<UnknownRecord>;
+/**
+ * Type representation of an object with unknown keys.
+ */
+export type UnknownRecord = Record<string, unknown>;
+
+/**
+ * Used in generic types to represent a Zod object schema with unknown keys.
+ */
+export type UnknownZodObjectSchema = z.ZodType<UnknownRecord>;
+
+/**
+ * Type representation of the dynamically generated ZodConfig class.
+ */
+export type ZodConfigType<Schema extends UnknownZodObjectSchema> = Type<ZodConfigStatic<Schema>> & {
+  schema: Schema;
+};
