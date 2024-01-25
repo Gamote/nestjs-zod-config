@@ -6,5 +6,5 @@ export interface ZodConfigOptions {
    * See: https://docs.nestjs.com/modules#global-modules
    */
   isGlobal?: boolean;
-  configs: ZodConfigType<UnknownZodObjectSchema>;
+  config: ZodConfigType<UnknownZodObjectSchema>;
 }

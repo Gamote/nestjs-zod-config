@@ -12,8 +12,8 @@ export class ZodConfigModule {
     return {
       global: options.isGlobal,
       module: ZodConfigModule,
-      providers: [options.configs],
-      exports: [options.configs],
+      providers: [options.config],
+      exports: [options.config],
     };
   }
 }
