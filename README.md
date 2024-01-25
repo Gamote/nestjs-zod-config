@@ -51,8 +51,8 @@ import { AppConfig } from './app.config';
 @Module({
    imports: [
      ZodConfigModule.forRoot({
-       isGlobal: true, // optional, defaults to true
        config: AppConfig,
+       isGlobal: true, // optional, defaults to `false`
      }),
    ],
 })
