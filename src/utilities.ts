@@ -23,3 +23,27 @@ export const safeBooleanCoerce = z.union([z.boolean(), z.string()]).transform((v
 
   throw new Error('Invalid boolean value');
 });
+
+/**
+ * This is a utility function that can be used to parse a comma delimited string to an array of strings.
+ */
+export const commaDelimitedArray = z.preprocess((input, ctx) => {
+  if (typeof input === 'string') {
+    return input.split(',').map((s) => s.trim());
+  }
+
+  ctx.addIssue({ code: 'custom', message: 'Invalid comma delimited array - must be a string' });
+  return z.NEVER;
+}, z.array(z.string()).min(1));
+
+/**
+ * This is a utility function that can be used to transform a JSON string into an object.
+ */
+export const jsonStringCoerce = z.string().transform((input, ctx) => {
+  try {
+    return JSON.parse(input);
+  } catch (e) {
+    ctx.addIssue({ code: 'custom', message: 'Invalid JSON string - cannot be parsed' });
+    return z.NEVER;
+  }
+});
