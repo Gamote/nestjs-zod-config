@@ -1,4 +1,5 @@
 export * from './types';
+export * from './utilities';
 export * from './zod-config';
 export * from './zod-config-static';
 export * from './zod-config.loader';

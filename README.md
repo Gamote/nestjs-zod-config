@@ -129,3 +129,12 @@ yarn test
 - [ ] Provide a way to customize the env loader. Useful when different name, format or location of the env file is needed.
 - [ ] Provide async methods to load the config.
 - [ ] Write tests 🧪
+
+## Tips and Tricks
+
+### Use `safeBooleanCoerce` to coerce strings to booleans safely
+
+This is a utility function that can be used to coerce a string value to a boolean in a strict manner.
+
+Normally you will do: `z.coerce.boolean()` but this will also coerce the string `'false'` to `true`.
+So instead we use this function to only allow the string `'false'` to be coerced to `false` and everything else will throw an error.
