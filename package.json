@@ -1,6 +1,6 @@
 {
   "name": "nestjs-zod-config",
-  "version": "1.2.3",
+  "version": "2.0.0",
   "description": "NestJS module to load, type and validate configuration using Zod",
   "keywords": [
     "zod",
