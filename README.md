@@ -137,4 +137,4 @@ yarn test
 This is a utility function that can be used to coerce a string value to a boolean in a strict manner.
 
 Normally you will do: `z.coerce.boolean()` but this will also coerce the string `'false'` to `true`.
-So instead we use this function to only allow the string `'false'` to be coerced to `false` and everything else will throw an error.
+So instead we use this function to only allow `'false'` or `false` to be coerced to `false`, `'true'` or `true` to `true` and everything else will throw an error.
