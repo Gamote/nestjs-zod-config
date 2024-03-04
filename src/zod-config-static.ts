@@ -1,6 +1,5 @@
 // Load the .env file into the process.env
-import 'dotenv/config';
-
+import { config } from 'dotenv';
 import type { z } from 'zod';
 
 import { UnknownZodObjectSchema } from './types';
@@ -13,6 +12,9 @@ export class ZodConfigStatic<Schema extends UnknownZodObjectSchema> {
   private readonly config: z.infer<Schema>;
 
   constructor(schema: Schema) {
+    // Load .env file before parsing process.env
+    config();
+
     this.config = schema.parse(process.env) as z.infer<Schema>;
   }
 
