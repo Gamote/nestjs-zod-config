@@ -1,5 +1,5 @@
-// Load the .env file into the process.env
 import { config } from 'dotenv';
+import * as process from 'process';
 import type { z } from 'zod';
 
 import { UnknownZodObjectSchema } from './types';
@@ -12,10 +12,21 @@ export class ZodConfigStatic<Schema extends UnknownZodObjectSchema> {
   private readonly config: z.infer<Schema>;
 
   constructor(schema: Schema) {
-    // Load .env file before parsing process.env
-    config();
+    let configObject = process.env;
 
-    this.config = schema.parse(process.env) as z.infer<Schema>;
+    // Override the environment variables obtained from `process.env`
+    // with the ones obtained from the `.env` file, if it exists.
+    try {
+      configObject = {
+        ...configObject,
+        // TODO: allow the consumer to pass the path to the `.env` file
+        ...config().parsed,
+      };
+    } catch (error) {
+      throw new Error(`Error parsing .env file`);
+    }
+
+    this.config = schema.parse(configObject) as z.infer<Schema>;
   }
 
   get<K extends keyof z.infer<Schema>>(key: K): z.infer<Schema>[K] {
