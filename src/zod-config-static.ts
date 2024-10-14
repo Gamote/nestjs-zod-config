@@ -27,6 +27,14 @@ export class ZodConfigStatic<Schema extends UnknownZodObjectSchema> {
     }
 
     this.config = schema.parse(configObject) as z.infer<Schema>;
+
+    // adds zod default values to the process.env object
+    for (const key in this.config) {
+      if (process.env[key] === undefined || process.env[key] === '') {
+        // notice that process.env only accepts string values
+        process.env[key] = String(this.config[key] ?? '');
+      }
+    }
   }
 
   get<K extends keyof z.infer<Schema>>(key: K): z.infer<Schema>[K] {
