@@ -133,6 +133,18 @@ This is a utility function that can be used to coerce a string value to a boolea
 Normally you will do: `z.coerce.boolean()` but this will also coerce the string `'false'` to `true`.
 So instead we use this function to only allow `'false'` or `false` to be coerced to `false`, `'true'` or `true` to `true` and everything else will throw an error.
 
+```ts
+// In your schema
+const configSchema = z.object({
+  DEBUG_MODE: safeBooleanCoerce,
+});
+
+// When parsed:
+// "true" or true -> true
+// "false" or false -> false
+// Any other value -> Error: "Invalid boolean value"
+```
+
 ### Use `commaDelimitedArray` to parse comma-separated strings into arrays
 
 This is a utility function that can be used to parse a comma-delimited string into an array of strings.
@@ -151,6 +163,36 @@ const configSchema = z.object({
 
 The function trims whitespace from each item and ensures the array contains at least one element. If the input is not a string, it will throw a validation error.
 
+### Use `jsonStringCoerce` to parse JSON strings into objects
+
+This is a utility function that can be used to transform a JSON string into an object. It's particularly useful when dealing with environment variables that contain JSON data.
+
+```ts
+// In your schema
+const configSchema = z.object({
+  SERVICE_ACCOUNT: jsonStringCoerce.pipe(
+    z.object({
+      type: z.literal('service_account'),
+      project_id: z.string().min(1),
+      private_key_id: z.string().min(1),
+      private_key: z.string().min(1),
+      client_email: z.string().min(1),
+      client_id: z.string().min(1),
+      auth_uri: z.string().url(),
+      token_uri: z.string().url(),
+      auth_provider_x509_cert_url: z.string().url(),
+      client_x509_cert_url: z.string().url(),
+    }).required(),
+  ),
+});
+
+// When parsed, this will transform a JSON string like:
+// '{"type":"service_account","project_id":"my-project",...}'
+// into a properly validated object with the specified structure
+```
+
+The function first attempts to parse the input string as JSON. If parsing fails, it will throw a validation error with the message "Invalid JSON string - cannot be parsed". After successful parsing, you can pipe the result to additional Zod schemas for further validation and transformation.
+
 ### Use `strictCoerceStringDate` for strict date coercion
 
 This is a utility function that can be used to coerce a string to a date in a strict manner.
@@ -159,8 +201,13 @@ When using `z.coerce.date()`, you might get unexpected results. For example, `z.
 
 This utility is particularly useful in DTOs where `null` or `undefined` may be passed, but their resolution to a date is not desired. It ensures that only valid string representations of dates are coerced to Date objects.
 
-## Testing
+```ts
+// In your schema
+const configSchema = z.object({
+  EXPIRATION_DATE: strictCoerceStringDate,
+});
 
-```bash
-yarn test
+// When parsed:
+// "2023-01-01" -> Date object (2023-01-01T00:00:00.000Z)
+// null or undefined -> Error: Expected string, received null/undefined
 ```
