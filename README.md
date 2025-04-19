@@ -133,6 +133,24 @@ This is a utility function that can be used to coerce a string value to a boolea
 Normally you will do: `z.coerce.boolean()` but this will also coerce the string `'false'` to `true`.
 So instead we use this function to only allow `'false'` or `false` to be coerced to `false`, `'true'` or `true` to `true` and everything else will throw an error.
 
+### Use `commaDelimitedArray` to parse comma-separated strings into arrays
+
+This is a utility function that can be used to parse a comma-delimited string into an array of strings.
+
+It's particularly useful when dealing with environment variables that contain multiple values separated by commas. For example, you might have an environment variable like `ALLOWED_ORIGINS=http://localhost:3000,https://example.com` that you want to parse into an array.
+
+```ts
+// In your schema
+const configSchema = z.object({
+  ALLOWED_ORIGINS: commaDelimitedArray,
+});
+
+// When parsed, this will transform "http://localhost:3000,https://example.com" into:
+// ["http://localhost:3000", "https://example.com"]
+```
+
+The function trims whitespace from each item and ensures the array contains at least one element. If the input is not a string, it will throw a validation error.
+
 ### Use `strictCoerceStringDate` for strict date coercion
 
 This is a utility function that can be used to coerce a string to a date in a strict manner.
