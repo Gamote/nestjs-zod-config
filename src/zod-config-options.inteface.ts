@@ -1,4 +1,4 @@
-import type { URL } from 'url';
+import type { URL } from "url";
 
 export interface ZodConfigOptions {
   /**

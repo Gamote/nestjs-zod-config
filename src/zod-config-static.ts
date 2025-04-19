@@ -1,9 +1,11 @@
-import dotenv from 'dotenv';
-import * as process from 'process';
-import type { z } from 'zod';
+import * as process from "process";
 
-import { UnknownZodObjectSchema } from './types';
-import { ZodConfigOptions } from './zod-config-options.inteface';
+import dotenv from "dotenv";
+
+import { UnknownZodObjectSchema } from "./types";
+import { ZodConfigOptions } from "./zod-config-options.inteface";
+
+import type { z } from "zod";
 
 /**
  * This class is the base class for this module.
@@ -22,7 +24,7 @@ export class ZodConfigStatic<Schema extends UnknownZodObjectSchema> {
         ...configObject,
         ...dotenv.config({ path: options?.envFilePath }).parsed,
       };
-    } catch (error) {
+    } catch {
       throw new Error(`Error parsing .env file`);
     }
 

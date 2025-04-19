@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
 
-import { UnknownZodObjectSchema, ZodConfigType } from './types';
-import { ZodConfigStatic } from './zod-config-static';
+import { UnknownZodObjectSchema, ZodConfigType } from "./types";
+import { ZodConfigStatic } from "./zod-config-static";
 
 /**
  * Method that helps consumers to create a `ZodConfigStatic` in a structured way.

@@ -1,7 +1,8 @@
-import { Module } from '@nestjs/common';
-import type { DynamicModule } from '@nestjs/common';
+import { Module } from "@nestjs/common";
 
-import { UnknownZodObjectSchema, ZodConfigType } from './types';
+import { UnknownZodObjectSchema, ZodConfigType } from "./types";
+
+import type { DynamicModule } from "@nestjs/common";
 
 export interface ZodConfigModuleOptions {
   /**

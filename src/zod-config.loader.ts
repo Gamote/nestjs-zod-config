@@ -1,4 +1,4 @@
-import { UnknownZodObjectSchema, ZodConfigType } from './types';
+import { UnknownZodObjectSchema, ZodConfigType } from "./types";
 
 /**
  * Help consumers to instantiate the ZodConfig class outside the NestJS context.

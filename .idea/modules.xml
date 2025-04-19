@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/zod-config.iml" filepath="$PROJECT_DIR$/.idea/zod-config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/nestjs-zod-config.iml" filepath="$PROJECT_DIR$/.idea/nestjs-zod-config.iml" />
     </modules>
   </component>
 </project>
