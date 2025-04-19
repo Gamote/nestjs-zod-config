@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 
 import { UnknownZodObjectSchema, ZodConfigType } from "./types";
+import { ZodConfigOptions } from "./zod-config-options.inteface";
 import { ZodConfigStatic } from "./zod-config-static";
 
 /**
@@ -13,16 +14,18 @@ import { ZodConfigStatic } from "./zod-config-static";
  * TODO: try to make methods asynchronous
  *
  * @param schema
+ * @param options
  */
 export const ZodConfig = <Schema extends UnknownZodObjectSchema>(
   schema: Schema,
+  options?: ZodConfigOptions,
 ): ZodConfigType<Schema> => {
   @Injectable()
   class ZodConfig extends ZodConfigStatic<Schema> {
     public static readonly schema = schema;
 
     constructor() {
-      super(schema);
+      super(schema, options);
     }
   }
 
