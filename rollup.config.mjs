@@ -2,12 +2,11 @@ import { defineConfig } from "rollup";
 import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
 import { terser } from "rollup-plugin-terser";
+import nodeResolve from "@rollup/plugin-node-resolve";
 
 const input = "src/index.ts";
 const dist = "dist";
 const external = ["@nestjs/common", "@nestjs/config", "zod"];
-
-// TODO: Remove `rimraf -rf dist && rollup -c`
 
 export default defineConfig([
   {
@@ -23,7 +22,7 @@ export default defineConfig([
         format: "es",
       },
     ],
-    plugins: [typescript(), terser()],
+    plugins: [nodeResolve(), typescript(), terser()],
   },
   {
     input,
@@ -32,6 +31,6 @@ export default defineConfig([
       dir: dist,
       format: "es",
     },
-    plugins: [dts()],
+    plugins: [nodeResolve(), dts()],
   },
 ]);
