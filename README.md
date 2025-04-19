@@ -4,7 +4,9 @@
 [![NPM downloads](https://img.shields.io/npm/dm/nestjs-zod-config.svg?style=flat)](https://www.npmjs.com/package/nestjs-zod-config)
 ![Fastify](https://img.shields.io/badge/-Vitest-86b91a?style=flat&logo=vitest&logoColor=white)
 
-**nestjs-zod-config** - NestJS module to load, type and validate configuration using Zod. Insied and outside the NestJS context.
+**nestjs-zod-config** - NestJS module to load, type and validate configuration using Zod. Inside and outside the NestJS context.
+
+We are also providing some handy utility functions. ✨
 
 ## Installation
 
@@ -28,13 +30,16 @@ const appConfigSchema = z.object({
 });
 
 export class AppConfig extends ZodConfig(appConfigSchema) {}
+
+// You can also pass a custom path to the .env file(s)
+export class AppConfig extends ZodConfig(appConfigSchema, {
+  envFilePath: '.env.custom'
+})
 ```
 
-> This assumes that you have a `.env` file in the root of your project or that you have set the environment variables in `process.env` in some other way.
+> By default, this assumes that you have a `.env` file in the root of your project or that you have set the environment variables in `process.env` in some other way. You can customize the path to the .env file using the `envFilePath` option.
 
 ✨ All done. Let's see how we can use it.
-
-Then we need to register the config class in our module.
 
 ## Usage
 
@@ -71,7 +76,7 @@ import { AppConfig } from './app.config';
 @Injectable()
 export class AppService {
    constructor(private readonly appConfig: AppConfig) {}
-   
+
    getPort(): number {
      return this.appConfig.get('PORT');
    }
@@ -112,25 +117,14 @@ const seedDb = async () => {
   const appConfig = loadZodConfig(AppConfig);
 
   const databaseurl = appConfig.get('DATABASE_URL');
-  
+
   // use the `databaseurl` to connect to the database and seed it
 };
 ```
 
 > In this case we cannot inject the `AppConfig` and we don't have access to the `app` instance. The file is executed outside the NestJS context.
 
-## Testing
-
-```bash
-yarn test
-```
-
-## Roadmap
-- [ ] Provide a way to customize the env loader. Useful when different name, format or location of the env file is needed.
-- [ ] Provide async methods to load the config.
-- [ ] Write tests 🧪
-
-## Tips and Tricks
+## Utility functions
 
 ### Use `safeBooleanCoerce` to coerce strings to booleans safely
 
@@ -138,3 +132,17 @@ This is a utility function that can be used to coerce a string value to a boolea
 
 Normally you will do: `z.coerce.boolean()` but this will also coerce the string `'false'` to `true`.
 So instead we use this function to only allow `'false'` or `false` to be coerced to `false`, `'true'` or `true` to `true` and everything else will throw an error.
+
+### Use `strictCoerceStringDate` for strict date coercion
+
+This is a utility function that can be used to coerce a string to a date in a strict manner.
+
+When using `z.coerce.date()`, you might get unexpected results. For example, `z.coerce.date().parse(null)` returns `1970-01-01T00:00:00.000Z`, which may not be the desired behavior in many cases.
+
+This utility is particularly useful in DTOs where `null` or `undefined` may be passed, but their resolution to a date is not desired. It ensures that only valid string representations of dates are coerced to Date objects.
+
+## Testing
+
+```bash
+yarn test
+```
