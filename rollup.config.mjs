@@ -1,12 +1,13 @@
 import { defineConfig } from "rollup";
 import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
-import { terser } from "rollup-plugin-terser";
-import nodeResolve from "@rollup/plugin-node-resolve";
+import terser from "@rollup/plugin-terser";
+import resolve from "@rollup/plugin-node-resolve";
 
+import packageJson from "./package.json" with { type: "json" };
 const input = "src/index.ts";
 const dist = "dist";
-const external = ["@nestjs/common", "@nestjs/config", "zod"];
+const external = ["@nestjs/common", "@nestjs/config", "zod", "dotenv"];
 
 export default defineConfig([
   {
@@ -14,23 +15,23 @@ export default defineConfig([
     external,
     output: [
       {
-        file: `${dist}/index.cjs.js`,
+        file: packageJson.main,
         format: "cjs",
       },
       {
-        file: `${dist}/index.esm.js`,
+        file: packageJson.module,
         format: "es",
       },
     ],
-    plugins: [nodeResolve(), typescript(), terser()],
+    plugins: [typescript(), resolve(), terser()],
   },
   {
     input,
     external,
     output: {
-      dir: dist,
+      file: packageJson.types,
       format: "es",
     },
-    plugins: [nodeResolve(), dts()],
+    plugins: [resolve(), dts()],
   },
 ]);

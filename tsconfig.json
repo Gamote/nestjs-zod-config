@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "commonjs",
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "declaration": true,
+    "declaration": false,
     "baseUrl": "./",
     "outDir": "./dist",
     "strict": true,
