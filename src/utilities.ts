@@ -47,3 +47,17 @@ export const jsonStringCoerce = z.string().transform((input, ctx) => {
     return z.NEVER;
   }
 });
+
+/**
+ * Strict coerce a string to a date.
+ *
+ * This is used because, when using `z.coerce.date()`, we get unexpected results.
+ * For example, `z.coerce.date().parse(null)` returns `1970-01-01T00:00:00.000Z`,
+ * which may not be the desired behavior in many cases.
+ *
+ * This is useful in DTOs where `null` or `undefined` may be passed,
+ * but their resolution to a date is not desired.
+ *
+ * @see https://github.com/colinhacks/zod/discussions/2103#discussioncomment-8683418
+ */
+export const strictCoerceStringDate = z.string().pipe(z.coerce.date());
