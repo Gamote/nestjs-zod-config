@@ -52,4 +52,6 @@
   "dependencies": {
     "dotenv": "^16.4.1"
   }
+  },
+  "packageManager": "yarn@4.9.1"
 }
