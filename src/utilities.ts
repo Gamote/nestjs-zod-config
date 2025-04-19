@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 /**
- * This is a utility function that can be used to coerce a string value to a boolean in a safe manner.
+ * This is a utility function that can be used to coerce a string value to a boolean safely.
  *
  * Normally you will do: `z.coerce.boolean()` but this will also coerce the string `'false'` to `true`.
  * So instead we use this function to only allow the string `'false'` to be coerced to `false` and everything else will throw an error.
@@ -25,7 +25,7 @@ export const safeBooleanCoerce = z.union([z.boolean(), z.string()]).transform((v
 });
 
 /**
- * This is a utility function that can be used to parse a comma delimited string to an array of strings.
+ * This is a utility function that can be used to parse a comma-delimited string to an array of strings.
  */
 export const commaDelimitedArray = z.preprocess((input, ctx) => {
   if (typeof input === 'string') {
