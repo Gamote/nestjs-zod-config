@@ -1,10 +1,9 @@
-import { UnknownZodObjectSchema, ZodConfigType } from './types';
+import type { URL } from 'url';
 
 export interface ZodConfigOptions {
   /**
-   * If "true",it will be registered as a global module.
-   * See: https://docs.nestjs.com/modules#global-modules
+   * Path to the .env file(s)
+   * @default '.env'
    */
-  isGlobal?: boolean;
-  config: ZodConfigType<UnknownZodObjectSchema>;
+  envFilePath?: string | string[] | URL;
 }
