@@ -17,6 +17,7 @@ export interface ZodConfigModuleOptions {
  * Module to register ZodConfig as a provider in the NestJS DI container.
  */
 @Module({})
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class ZodConfigModule {
   static forRoot(options: ZodConfigModuleOptions): DynamicModule {
     return {
