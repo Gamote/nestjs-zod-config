@@ -146,22 +146,25 @@ export class TestAppConfig extends ZodConfig(appConfigSchema, {
 }) {}
 ```
 
-### Using withOverrides method
+### Using withOverrides static method
 
-You can also create new instances with overrides from existing config instances:
+You can also create new instances with overrides directly from the config class:
 
 ```ts
 // In your tests
-import { loadZodConfig } from 'nestjs-zod-config';
 import { AppConfig } from './app.config';
 
-const originalConfig = loadZodConfig(AppConfig);
-const testConfig = originalConfig.withOverrides({
+const testConfig = AppConfig.withOverrides({
   DATABASE_URL: 'sqlite://test.db',
   DEBUG: true,
 });
 
-// testConfig now has the overridden values while originalConfig remains unchanged
+// testConfig is a new instance with the overridden values
+// You can create multiple independent instances with different overrides
+const anotherTestConfig = AppConfig.withOverrides({
+  DATABASE_URL: 'sqlite://another-test.db',
+  PORT: 4000,
+});
 ```
 
 > **Note:** Overrides have the highest priority and will take precedence over both environment variables and `.env` file values. All override values are fully type-safe and validated against your Zod schema.
