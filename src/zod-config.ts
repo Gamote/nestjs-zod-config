@@ -18,7 +18,7 @@ import { ZodConfigStatic } from "./zod-config-static";
  */
 export const ZodConfig = <Schema extends UnknownZodObjectSchema>(
   schema: Schema,
-  options?: ZodConfigOptions,
+  options?: ZodConfigOptions<Schema>,
 ): ZodConfigType<Schema> => {
   @Injectable()
   class ZodConfig extends ZodConfigStatic<Schema> {

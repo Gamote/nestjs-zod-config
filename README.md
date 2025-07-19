@@ -34,7 +34,7 @@ export class AppConfig extends ZodConfig(appConfigSchema) {}
 // You can also pass a custom path to the .env file(s)
 export class AppConfig extends ZodConfig(appConfigSchema, {
   envFilePath: '.env.custom'
-})
+}) {}
 ```
 
 > By default, this assumes that you have a `.env` file in the root of your project or that you have set the environment variables in `process.env` in some other way. You can customize the path to the .env file using the `envFilePath` option.
@@ -123,6 +123,48 @@ const seedDb = async () => {
 ```
 
 > In this case we cannot inject the `AppConfig` and we don't have access to the `app` instance. The file is executed outside the NestJS context.
+
+## Testing with Overrides
+
+For testing purposes, you can override configuration values without modifying environment variables or `.env` files. This is particularly useful for unit tests, integration tests, or when you need different configuration values for specific test scenarios.
+
+### Using overrides in ZodConfig
+
+You can pass overrides directly when creating your config class:
+
+```ts
+// test-app.config.ts
+import { ZodConfig } from 'nestjs-zod-config';
+import { appConfigSchema } from './app.config';
+
+export class TestAppConfig extends ZodConfig(appConfigSchema, {
+  overrides: {
+    DATABASE_URL: 'sqlite://test.db',
+    JWT_SECRET: 'test-secret',
+    PORT: 4000,
+  }
+}) {}
+```
+
+### Using withOverrides method
+
+You can also create new instances with overrides from existing config instances:
+
+```ts
+// In your tests
+import { loadZodConfig } from 'nestjs-zod-config';
+import { AppConfig } from './app.config';
+
+const originalConfig = loadZodConfig(AppConfig);
+const testConfig = originalConfig.withOverrides({
+  DATABASE_URL: 'sqlite://test.db',
+  DEBUG: true,
+});
+
+// testConfig now has the overridden values while originalConfig remains unchanged
+```
+
+> **Note:** Overrides have the highest priority and will take precedence over both environment variables and `.env` file values. All override values are fully type-safe and validated against your Zod schema.
 
 ## Utility functions
 

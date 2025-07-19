@@ -13,8 +13,13 @@ import type { z } from "zod";
  */
 export class ZodConfigStatic<Schema extends UnknownZodObjectSchema> {
   private readonly config: z.infer<Schema>;
+  private readonly schema: Schema;
+  private readonly options?: ZodConfigOptions<Schema>;
 
-  constructor(schema: Schema, options?: ZodConfigOptions) {
+  constructor(schema: Schema, options?: ZodConfigOptions<Schema>) {
+    this.schema = schema;
+    this.options = options;
+
     let configObject = process.env;
 
     // Override the environment variables obtained from `process.env`
@@ -28,10 +33,30 @@ export class ZodConfigStatic<Schema extends UnknownZodObjectSchema> {
       throw new Error(`Error parsing .env file`);
     }
 
+    // Apply overrides (the highest priority)
+    if (options?.overrides) {
+      configObject = {
+        ...configObject,
+        ...options.overrides,
+      };
+    }
+
     this.config = schema.parse(configObject) as z.infer<Schema>;
   }
 
   get<K extends keyof z.infer<Schema>>(key: K): z.infer<Schema>[K] {
     return this.config[key];
+  }
+
+  /**
+   * Create a new instance with additional overrides
+   * Useful for testing scenarios where you need different configuration values
+   * without modifying the original instance
+   */
+  withOverrides(overrides: Partial<z.infer<Schema>>): ZodConfigStatic<Schema> {
+    return new ZodConfigStatic(this.schema, {
+      ...this.options,
+      overrides: { ...this.options?.overrides, ...overrides },
+    });
   }
 }
