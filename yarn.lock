@@ -450,6 +450,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nestjs/testing@npm:^11.1.5":
+  version: 11.1.5
+  resolution: "@nestjs/testing@npm:11.1.5"
+  dependencies:
+    tslib: "npm:2.8.1"
+  peerDependencies:
+    "@nestjs/common": ^11.0.0
+    "@nestjs/core": ^11.0.0
+    "@nestjs/microservices": ^11.0.0
+    "@nestjs/platform-express": ^11.0.0
+  peerDependenciesMeta:
+    "@nestjs/microservices":
+      optional: true
+    "@nestjs/platform-express":
+      optional: true
+  checksum: 10c0/f1b98e0e0daff4b728121bd32404f3e3fa1ecdc26e51cc01f2aa4ef7d9038bc759af6ab506dae32014bdded9f2c53f542daaf91721cb3db3d49da2642e7cc34d
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -3238,6 +3257,7 @@ __metadata:
   dependencies:
     "@eslint/js": "npm:^9.31.0"
     "@nestjs/common": "npm:^11.1.5"
+    "@nestjs/testing": "npm:^11.1.5"
     "@rollup/plugin-node-resolve": "npm:^16.0.1"
     "@rollup/plugin-terser": "npm:^0.4.4"
     "@rollup/plugin-typescript": "npm:^12.1.4"

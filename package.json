@@ -1,6 +1,6 @@
 {
   "name": "nestjs-zod-config",
-  "version": "3.1.0",
+  "version": "4.0.0",
   "description": "NestJS module to load, type and validate configuration using Zod",
   "keywords": [
     "zod",
@@ -23,7 +23,8 @@
   "scripts": {
     "prepack": "yarn build",
     "build": "rimraf -rf dist && rollup -c",
-    "test": "vitest",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "coverage": "vitest run --coverage"
   },
   "peerDependencies": {
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@eslint/js": "^9.31.0",
     "@nestjs/common": "^11.1.5",
+    "@nestjs/testing": "^11.1.5",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.4",
