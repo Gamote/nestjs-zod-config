@@ -31,31 +31,31 @@
     "zod": "^3.0.0"
   },
   "devDependencies": {
-    "@eslint/js": "^9.25.1",
-    "@nestjs/common": "^11.1.0",
+    "@eslint/js": "^9.31.0",
+    "@nestjs/common": "^11.1.5",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^12.1.2",
-    "@types/node": "^22.15.3",
+    "@rollup/plugin-typescript": "^12.1.4",
+    "@types/node": "^24.0.15",
     "@vitest/coverage-c8": "^0.33.0",
-    "eslint": "^9.25.1",
-    "eslint-config-prettier": "^10.1.2",
-    "eslint-plugin-import": "^2.31.0",
+    "eslint": "^9.31.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-promise": "^7.2.1",
-    "globals": "^16.0.0",
-    "prettier": "^3.5.3",
+    "globals": "^16.3.0",
+    "prettier": "^3.6.2",
     "reflect-metadata": "^0.2.2",
-    "rollup": "^4.40.1",
+    "rollup": "^4.45.1",
     "rollup-plugin-dts": "^6.2.1",
     "rxjs": "^7.8.2",
-    "tsx": "^4.19.3",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.31.1",
-    "vitest": "^3.1.2",
-    "zod": "^3.24.3"
+    "typescript-eslint": "^8.37.0",
+    "vitest": "^3.2.4",
+    "zod": "^4.0.5"
   },
   "dependencies": {
-    "dotenv": "^16.5.0"
+    "dotenv": "^17.2.0"
   },
-  "packageManager": "yarn@4.9.1"
+  "packageManager": "yarn@4.9.2"
 }
