@@ -20,15 +20,18 @@ export class ZodConfigStatic<Schema extends UnknownZodObjectSchema> {
     this.schema = schema;
     this.options = options;
 
-    let configObject = process.env;
+    let configObject = { ...process.env };
 
     // Override the environment variables obtained from `process.env`
     // with the ones obtained from the `.env` file if it exists.
     try {
-      configObject = {
-        ...configObject,
-        ...dotenv.config({ path: options?.envFilePath }).parsed,
-      };
+      const dotenvResult = dotenv.config({ path: options?.envFilePath });
+      if (dotenvResult.parsed) {
+        configObject = {
+          ...configObject,
+          ...dotenvResult.parsed,
+        };
+      }
     } catch {
       throw new Error(`Error parsing .env file`);
     }
