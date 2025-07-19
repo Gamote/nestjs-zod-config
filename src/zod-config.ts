@@ -35,12 +35,14 @@ export const ZodConfig = <Schema extends UnknownZodObjectSchema>(
      * Useful for testing scenarios where you need different configuration values
      * without modifying the original class configuration
      */
-    static withOverrides(overrides: Partial<z.infer<Schema>>): ZodConfigStatic<Schema> {
+    public static withOverrides(
+      overrides: Partial<z.infer<Schema>>,
+    ): ZodConfigStatic<Schema> {
       const mergedOptions: ZodConfigOptions<Schema> = {
         ...options,
         overrides: { ...options?.overrides, ...overrides },
       };
-      
+
       // Create a new ZodConfigStatic instance with the merged options
       return new ZodConfigStatic(schema, mergedOptions);
     }

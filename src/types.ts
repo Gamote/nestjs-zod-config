@@ -21,4 +21,7 @@ export type ZodConfigType<Schema extends UnknownZodObjectSchema> = Type<
   ZodConfigStatic<Schema>
 > & {
   schema: Schema;
+  withOverrides: (
+    overrides: Partial<z.infer<Schema>>,
+  ) => ZodConfigStatic<Schema>;
 };
