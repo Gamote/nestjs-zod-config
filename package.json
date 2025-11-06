@@ -1,6 +1,6 @@
 {
   "name": "nestjs-zod-config",
-  "version": "4.2.0",
+  "version": "5.0.0",
   "description": "Type-safe NestJS configuration module with Zod schema validation for environment variables and .env files",
   "keywords": [
     "nestjs",
