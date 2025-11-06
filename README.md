@@ -6,7 +6,7 @@
 
 **nestjs-zod-config** - NestJS module to load, type and validate configuration using Zod. Inside and outside the NestJS context.
 
-We are also providing some handy utility functions. ✨
+We’re also providing some handy utility functions. ✨
 
 ## Installation
 
@@ -37,7 +37,7 @@ export class AppConfig extends ZodConfig(appConfigSchema, {
 }) {}
 ```
 
-> By default, this assumes that you have a `.env` file in the root of your project or that you have set the environment variables in `process.env` in some other way. You can customize the path to the .env file using the `envFilePath` option.
+> By default, this assumes that you have a `.env` file in the root of your project or that you’ve set the environment variables in `process.env` in some other way. You can customize the path to the .env file using the `envFilePath` option.
 
 ✨ All done. Let's see how we can use it.
 
@@ -122,7 +122,7 @@ const seedDb = async () => {
 };
 ```
 
-> In this case we cannot inject the `AppConfig` and we don't have access to the `app` instance. The file is executed outside the NestJS context.
+> In this case we can’t inject the `AppConfig` and we don't have access to the `app` instance. The file is executed outside the NestJS context.
 
 ## Testing with Overrides
 
@@ -200,13 +200,15 @@ It's particularly useful when dealing with environment variables that contain mu
 // In your schema
 const configSchema = z.object({
   ALLOWED_ORIGINS: commaDelimitedArray,
+  // Or require at least one item:
+  REQUIRED_ORIGINS: commaDelimitedArray.min(1),
 });
 
 // When parsed, this will transform "http://localhost:3000,https://example.com" into:
 // ["http://localhost:3000", "https://example.com"]
 ```
 
-The function trims whitespace from each item and ensures the array contains at least one element. If the input is not a string, it will throw a validation error.
+The function trims whitespace from each item and filters out empty values. Empty strings result in empty arrays. If you need to ensure at least one element, you can chain `.min(1)` to the schema. If the input is not a string, it will throw a validation error.
 
 ### Use `jsonStringCoerce` to parse JSON strings into objects
 

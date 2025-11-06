@@ -28,10 +28,17 @@ export const safeBooleanCoerce = z
 
 /**
  * This is a utility function that can be used to parse a comma-delimited string to an array of strings.
+ * Empty strings are filtered out, so `''` returns `[]` and `',value'` returns `['value']`.
  */
 export const commaDelimitedArray = z.preprocess((input, ctx) => {
   if (typeof input === "string") {
-    return input.split(",").map((s) => s.trim());
+    if (input.trim() === "") {
+      return [];
+    }
+    return input
+      .split(",")
+      .map((s) => s.trim())
+      .filter((s) => s !== "");
   }
 
   ctx.addIssue({
@@ -39,7 +46,7 @@ export const commaDelimitedArray = z.preprocess((input, ctx) => {
     message: "Invalid comma delimited array - must be a string",
   });
   return z.NEVER;
-}, z.array(z.string()).min(1));
+}, z.array(z.string()));
 
 /**
  * This is a utility function that can be used to transform a JSON string into an object.
