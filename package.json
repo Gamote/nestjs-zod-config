@@ -1,15 +1,22 @@
 {
   "name": "nestjs-zod-config",
   "version": "4.2.0",
-  "description": "NestJS module to load, type and validate configuration using Zod",
+  "description": "Type-safe NestJS configuration module with Zod schema validation for environment variables and .env files",
   "keywords": [
-    "zod",
-    "config",
     "nestjs",
     "nest",
+    "zod",
+    "config",
+    "configuration",
+    "environment",
+    "env",
+    "validation",
+    "schema",
     "typescript",
-    "type",
-    "check"
+    "type-safe",
+    "dotenv",
+    "nestjs-config",
+    "env-validation"
   ],
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -17,7 +24,14 @@
   "files": [
     "dist"
   ],
-  "repository": "https://github.com/Gamote/nestjs-zod-config.git",
+  "homepage": "https://github.com/Gamote/nestjs-zod-config",
+  "bugs": {
+    "url": "https://github.com/Gamote/nestjs-zod-config/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gamote/nestjs-zod-config.git"
+  },
   "author": "Gamote",
   "license": "MIT",
   "scripts": {
